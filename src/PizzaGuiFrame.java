@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.Random;
 
 public class PizzaGuiFrame extends JFrame {
     JPanel mainPnl, titlePnl, displayPnl, cmdPnl;
@@ -99,7 +98,6 @@ public class PizzaGuiFrame extends JFrame {
     }
 
     private void createControlPanel() {
-        Random rnd = new Random();
         cmdPnl = new JPanel();
         cmdPnl.setLayout(new GridLayout(1,3));
         orderBtn = new JButton("Order!");
