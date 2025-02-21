@@ -51,10 +51,10 @@ public class PizzaGuiFrame extends JFrame {
 
         JPanel boxes = new JPanel();
 
-        JRadioButton smlRBtn = new JRadioButton("Small");
-        JRadioButton medRBtn = new JRadioButton("Medium");
-        JRadioButton lrgRBtn = new JRadioButton("Large");
-        JRadioButton xlRBtn = new JRadioButton("Extra Large");
+        smlRBtn = new JRadioButton("Small");
+        medRBtn = new JRadioButton("Medium");
+        lrgRBtn = new JRadioButton("Large");
+        xlRBtn = new JRadioButton("Extra Large");
 
         sizeBtnGroup.add(smlRBtn);
         sizeBtnGroup.add(medRBtn);
@@ -74,12 +74,12 @@ public class PizzaGuiFrame extends JFrame {
 
         JLabel toppingsLbl = new JLabel("Toppings: ");
 
-        JCheckBox pepperoniCB = new JCheckBox("Pepperoni");
-        JCheckBox baconCB = new JCheckBox("Bacon");
-        JCheckBox onionCB = new JCheckBox("Onion");
-        JCheckBox pepperCB = new JCheckBox("Green Bell Pepper");
-        JCheckBox anchovyCB = new JCheckBox("Anchovies");
-        JCheckBox pineappleCB = new JCheckBox("Pineapple");
+        pepperoniCB = new JCheckBox("Pepperoni");
+        baconCB = new JCheckBox("Bacon");
+        onionCB = new JCheckBox("Onion");
+        pepperCB = new JCheckBox("Green Bell Pepper");
+        anchovyCB = new JCheckBox("Anchovies");
+        pineappleCB = new JCheckBox("Pineapple");
 
         checks.add(toppingsLbl);
 
@@ -105,7 +105,13 @@ public class PizzaGuiFrame extends JFrame {
         orderBtn = new JButton("Order!");
         clearBtn = new JButton("Clear form!");
         quitBtn = new JButton("Quit!");
-        quitBtn.addActionListener((ActionEvent ae) -> System.exit(0));
+        quitBtn.addActionListener((ActionEvent ae) -> {
+            int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?", "Confirmation", JOptionPane.YES_NO_OPTION);
+            if (choice == JOptionPane.YES_OPTION) {
+                    System.exit(0);
+            }
+
+        });
 
         orderBtn.addActionListener((ActionEvent ae) -> {
 
