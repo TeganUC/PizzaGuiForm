@@ -109,18 +109,18 @@ public class PizzaGuiFrame extends JFrame {
 
         orderBtn.addActionListener((ActionEvent ae) -> {
 
-            pizzaTA.append("======================================================================");
-            pizzaTA.append("Size price:       " + getSizeCost());
-            pizzaTA.append("Toppings price:   " + getToppingsCost());
+            pizzaTA.append("======================================================================" + "\n");
+            pizzaTA.append("Size price:       " + getSizeCost() + "\n");
+            pizzaTA.append("Toppings price:   " + getToppingsCost() + "\n");
             pizzaTA.append("");
-            pizzaTA.append("Subtotal:         " + (getSizeCost() + getToppingsCost()));
-            pizzaTA.append("Tax:              " + tax);
+            pizzaTA.append("Subtotal:         " + (getSizeCost() + getToppingsCost()) + "\n");
+            pizzaTA.append("Tax:              " + tax + "\n");
             pizzaTA.append("");
-            pizzaTA.append("----------------------------------------------------------------------");
+            pizzaTA.append("----------------------------------------------------------------------" + "\n");
             pizzaTA.append("");
-            pizzaTA.append("Total:             " + ((getSizeCost() + getToppingsCost()) + (getSizeCost() + getToppingsCost())*tax));
+            pizzaTA.append("Total:             " + ((getSizeCost() + getToppingsCost()) + (getSizeCost() + getToppingsCost())*tax) + "\n");
             pizzaTA.append("");
-            pizzaTA.append("======================================================================");
+            pizzaTA.append("======================================================================" + "\n");
 
         });
 
