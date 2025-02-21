@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.util.Random;
 
 public class PizzaGuiFrame extends JFrame {
-    JPanel mainPnl, titlePnl, selectPnl, displayPnl, cmdPnl;
+    JPanel mainPnl, titlePnl, displayPnl, cmdPnl;
     JLabel titleLbl, sizeLbl, toppingsLbl;
     ButtonGroup sizeBtnGroup;
     JRadioButton smlRBtn, medRBtn, lrgRBtn, xlRBtn;
@@ -14,12 +14,15 @@ public class PizzaGuiFrame extends JFrame {
     JTextArea pizzaTA;
     JButton quitBtn, orderBtn, clearBtn;
 
+    double sizeCost;
+    double toppingsCost;
+    double tax = .07;
+
     public PizzaGuiFrame() {
         mainPnl = new JPanel();
         mainPnl.setLayout(new BorderLayout());
         add(mainPnl);
         createTitlePanel();
-        createSelectPanel();
         createDisplayPanel();
         createControlPanel();
 
@@ -42,45 +45,57 @@ public class PizzaGuiFrame extends JFrame {
 
     private void createDisplayPanel() {
         displayPnl = new JPanel();
-        pizzaTA = new JTextArea(15,50);
-        scroller = new JScrollPane(pizzaTA);
-        displayPnl.add(scroller);
-        mainPnl.add(displayPnl, BorderLayout.CENTER);
-    }
 
-    private void createSelectPanel(){
-        selectPnl = new JPanel();
         ButtonGroup sizeBtnGroup = new ButtonGroup();
         JLabel sizeLbl = new JLabel("Pizza Size: ");
+
+        JPanel boxes = new JPanel();
 
         JRadioButton smlRBtn = new JRadioButton("Small");
         JRadioButton medRBtn = new JRadioButton("Medium");
         JRadioButton lrgRBtn = new JRadioButton("Large");
         JRadioButton xlRBtn = new JRadioButton("Extra Large");
 
-        smlRBtn.setBounds(120, 30, 120, 50);
-        medRBtn.setBounds(120, 30, 120, 50);
-        lrgRBtn.setBounds(120, 30, 120, 50);
-        xlRBtn.setBounds(120, 30, 120, 50);
-
-        sizeLbl.setBounds(120,30,120,50);
-
         sizeBtnGroup.add(smlRBtn);
         sizeBtnGroup.add(medRBtn);
         sizeBtnGroup.add(lrgRBtn);
         sizeBtnGroup.add(xlRBtn);
 
-        selectPnl.add(sizeLbl);
+        boxes.add(sizeLbl);
 
-        selectPnl.add(smlRBtn);
-        selectPnl.add(medRBtn);
-        selectPnl.add(lrgRBtn);
-        selectPnl.add(xlRBtn);
+        boxes.add(smlRBtn);
+        boxes.add(medRBtn);
+        boxes.add(lrgRBtn);
+        boxes.add(xlRBtn);
 
-        JLabel toppingsLbl = new JLabel();
-        sizeLbl.setText("Toppings: ");
+        displayPnl.add(boxes);
 
-        mainPnl.add(selectPnl);
+        JPanel checks = new JPanel();
+
+        JLabel toppingsLbl = new JLabel("Toppings: ");
+
+        JCheckBox pepperoniCB = new JCheckBox("Pepperoni");
+        JCheckBox baconCB = new JCheckBox("Bacon");
+        JCheckBox onionCB = new JCheckBox("Onion");
+        JCheckBox pepperCB = new JCheckBox("Green Bell Pepper");
+        JCheckBox anchovyCB = new JCheckBox("Anchovies");
+        JCheckBox pineappleCB = new JCheckBox("Pineapple");
+
+        checks.add(toppingsLbl);
+
+        checks.add(pepperoniCB);
+        checks.add(baconCB);
+        checks.add(onionCB);
+        checks.add(pepperCB);
+        checks.add(anchovyCB);
+        checks.add(pineappleCB);
+
+        displayPnl.add(checks);
+
+        pizzaTA = new JTextArea(10,50);
+        scroller = new JScrollPane(pizzaTA);
+        displayPnl.add(scroller);
+        mainPnl.add(displayPnl);
     }
 
     private void createControlPanel() {
@@ -94,7 +109,19 @@ public class PizzaGuiFrame extends JFrame {
 
         orderBtn.addActionListener((ActionEvent ae) -> {
 
-            pizzaTA.append("fish" +"\n");
+            pizzaTA.append("======================================================================");
+            pizzaTA.append("Size price:       " + getSizeCost());
+            pizzaTA.append("Toppings price:   " + getToppingsCost());
+            pizzaTA.append("");
+            pizzaTA.append("Subtotal:         " + (getSizeCost() + getToppingsCost()));
+            pizzaTA.append("Tax:              " + tax);
+            pizzaTA.append("");
+            pizzaTA.append("----------------------------------------------------------------------");
+            pizzaTA.append("");
+            pizzaTA.append("Total:             " + ((getSizeCost() + getToppingsCost()) + (getSizeCost() + getToppingsCost())*tax));
+            pizzaTA.append("");
+            pizzaTA.append("======================================================================");
+
         });
 
         clearBtn.addActionListener((ActionEvent ae) -> {
@@ -110,4 +137,55 @@ public class PizzaGuiFrame extends JFrame {
         mainPnl.add(cmdPnl, BorderLayout.SOUTH);
 
     }
+
+    public double getSizeCost() {
+
+        if (smlRBtn.isSelected()) {
+            sizeCost = 5;
+        }
+
+        if (medRBtn.isSelected()) {
+            sizeCost = 8;
+        }
+
+        if (lrgRBtn.isSelected()) {
+            sizeCost = 10;
+        }
+
+        if (xlRBtn.isSelected()) {
+            sizeCost = 14;
+        }
+        return sizeCost;
+    }
+
+    public double getToppingsCost(){
+
+        toppingsCost = 0;
+
+        if(pepperoniCB.isSelected()){
+            toppingsCost += 1;
+        }
+
+        if(baconCB.isSelected()){
+            toppingsCost += 2;
+        }
+
+        if(onionCB.isSelected()){
+            toppingsCost += .5;
+        }
+
+        if(pepperCB.isSelected()){
+            toppingsCost += .5;
+        }
+
+        if(anchovyCB.isSelected()){
+            toppingsCost += 3;
+        }
+
+        if(pineappleCB.isSelected()){
+            toppingsCost += 3;
+        }
+        return toppingsCost;
+    }
+
 }
